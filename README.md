@@ -20,6 +20,3 @@ This option will upgrade to the latest release version.
 ```
 pushover --upgrade
 ```
-
-# Contributors
-* Aaron Fagan - [Github](https://github.com/aaronfagan), [Website](https://www.aaronfagan.ca/)
