@@ -47,3 +47,7 @@ chmod 700 ~/.config/pushover-cli
 touch ~/.config/pushover-cli/global.env
 chmod 600 ~/.config/pushover-cli/global.env
 ```
+
+## Acknowledgements
+
+Thanks to [Aaron Fagan](https://www.aaronfagan.ca/) for the original [aaronfagan/pushover-cli](https://github.com/aaronfagan/pushover-cli) this fork is based on.
