@@ -28,24 +28,34 @@ Each token is resolved from the first source that has it. There is no fallback c
 
 1. CLI flags: `--user KEY` / `--token TOKEN`
 2. Environment variables: `PUSHOVER_USER_KEY` / `PUSHOVER_APP_TOKEN`
-3. Global config file: `~/.config/pushover-cli/global.env`
+3. Project config file: `./.pushover-cli` (in the current working directory)
+4. Global config file: `~/.config/pushover-cli/global.env`
 
-### Global config file
+### Config files
 
-`~/.config/pushover-cli/global.env` is plain text:
+Both config files use the same plain-text `KEY="value"` format:
 
 ```
 PUSHOVER_USER_KEY="your-user-key"
 PUSHOVER_APP_TOKEN="your-app-token"
 ```
 
-Lock it down:
+The project file `./.pushover-cli` is only read from the current working directory — there is no walk-up of parent directories. Use it to scope a different user key or app token to a specific project.
+
+Lock the global file down:
 
 ```bash
 mkdir -p ~/.config/pushover-cli
 chmod 700 ~/.config/pushover-cli
 touch ~/.config/pushover-cli/global.env
 chmod 600 ~/.config/pushover-cli/global.env
+```
+
+For the project file:
+
+```bash
+touch ./.pushover-cli
+chmod 600 ./.pushover-cli
 ```
 
 ## Acknowledgements
