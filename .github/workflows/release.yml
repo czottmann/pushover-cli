@@ -23,11 +23,30 @@ jobs:
             tar -czf "pushover-cli-${version}-${target}.tar.gz" pushover
           done
 
+      - name: Extract release notes from CHANGELOG
+        run: |
+          set -euo pipefail
+          version="${GITHUB_REF_NAME#v}"
+          notes=$(awk -v ver="$version" '
+            $0 ~ "^## \\[" ver "\\]" {flag=1; next}
+            flag && /^## \[/ {exit}
+            flag {print}
+          ' CHANGELOG.md)
+          if [[ -z "${notes//[[:space:]]/}" ]]; then
+            echo "::error::No CHANGELOG.md section found for version $version"
+            exit 1
+          fi
+          {
+            echo "$notes"
+            echo
+            echo "Full changelog: https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/CHANGELOG.md"
+          } > release-notes.md
+
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" \
             --title "$GITHUB_REF_NAME" \
-            --generate-notes \
+            --notes-file release-notes.md \
             pushover-cli-*.tar.gz
