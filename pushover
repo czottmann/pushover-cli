@@ -2,7 +2,7 @@
 
 set -u
 
-VERSION="2.0.0"
+VERSION="2.1.0"
 GLOBAL_CONFIG_FILE="${HOME}/.config/pushover-cli/global.env"
 PROJECT_CONFIG_FILE="./.pushover-cli"
 API_URL="https://api.pushover.net/1/messages.json"
